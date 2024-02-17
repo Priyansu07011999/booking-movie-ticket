@@ -1,0 +1,13 @@
+.main {
+    margin:auto 40%;
+  }
+
+
+.body{
+    margin-top: 40px;
+    padding-top: 10px;
+}
+
+.name, .seat{
+    padding-top: 10px;
+}
