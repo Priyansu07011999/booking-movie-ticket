@@ -25,7 +25,7 @@ async function addBooking() {
 
   async function fetchBookings() {
     try {
-      const response = await axios.get('https://crudcrud.com/api/dc3ba96119494a409abb9da1ae9876aa/bookings');
+      const response = await axios.get('https://crudcrud.com/api/b5213632ca6f4bd6a17deebe65e702a3/bookings');
       const bookings = response.data;
       displayBookings(bookings);
       totalCount = bookings.length; // Update the total count
@@ -76,21 +76,21 @@ async function addBooking() {
   }
 
 
-  async function editBooking(seatNumber) {
+  async function editBooking(_id) {
     const newName = prompt('Enter new name:');
     const newSeatNumber = prompt('Enter new seat number:');
   
     try {
-      await axios.put(`https://crudcrud.com/api/dc3ba96119494a409abb9da1ae9876aa/bookings/${seatNumber}`, { name: newName, seatNumber: newSeatNumber });
+      await axios.put(`https://crudcrud.com/api/b5213632ca6f4bd6a17deebe65e702a3/bookings/${_id}`, { name: newName, seatNumber: newSeatNumber });
       fetchBookings();
     } catch (error) {
       console.error('Error editing booking:', error);
     }
   }
 
-  async function deleteBooking(seatNumber) {
+  async function deleteBooking(_id) {
     try {
-      await axios.delete(`https://crudcrud.com/api/dc3ba96119494a409abb9da1ae9876aa/bookings/${seatNumber}`);
+      await axios.delete(`https://crudcrud.com/api/b5213632ca6f4bd6a17deebe65e702a3/bookings/${_id}`);
       fetchBookings();
       totalCount--; // Decrement total count when a booking is deleted
       document.getElementById('totalCount').textContent = totalCount;
@@ -101,7 +101,7 @@ async function addBooking() {
  
   async function findWithSeatNumber(){
     try {
-        const response = await axios.get('https://crudcrud.com/api/dc3ba96119494a409abb9da1ae9876aa/bookings');
+        const response = await axios.get('https://crudcrud.com/api/b5213632ca6f4bd6a17deebe65e702a3/bookings');
         const bookings = response.data;
         const findSlot = document.getElementById('find').value.trim(); // Get the seat number to find
         let filteredBookings = [];
