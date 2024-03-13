@@ -1,17 +1,27 @@
 let totalCount = 0; // Initial count
 async function addBooking() {
-    const name = document.getElementById('name').value;
-    const seatNumber = document.getElementById('seatNumber').value;
-  
-    try {
-      await axios.post('https://crudcrud.com/api/dc3ba96119494a409abb9da1ae9876aa/bookings', { name, seatNumber });
+  const name = document.getElementById('name').value;
+  const seatNumber = document.getElementById('seatNumber').value;
+
+  try {
+      const response = await axios.get(`https://crudcrud.com/api/b5213632ca6f4bd6a17deebe65e702a3/bookings`);
+      const bookings = response.data;
+
+      // Check if the provided seat number is already booked
+      const isSeatBooked = bookings.some(booking => booking.seatNumber === seatNumber);
+
+      if (isSeatBooked) {
+          alert(`Seat ${seatNumber} is already booked.`);
+          return;
+      }
+
+      // If seat is available, proceed with adding the booking
+      await axios.post('https://crudcrud.com/api/b5213632ca6f4bd6a17deebe65e702a3/bookings', { name, seatNumber });
       fetchBookings();
-
-    } catch (error) {
+  } catch (error) {
       console.error('Error adding booking:', error);
-    }
-
   }
+}
 
   async function fetchBookings() {
     try {
@@ -105,7 +115,7 @@ async function addBooking() {
     
         displayBookings(filteredBookings); // Display filtered bookings
         totalCount = filteredBookings.length; // Update the total count based on filtered bookings
-        document.getElementById('totalCount').textContent = totalCount; // Update the count on the screen
+        document.getElementById('totalBooked').textContent = totalCount; // Update the count on the screen
       } catch (error) {
         console.error('Error fetching bookings:', error);
       }
